@@ -14,7 +14,7 @@ exports.getRepo= (src,workspace,type)=>{
             return
         }
         if(type == 'git'){
-            r(git().silent(true).clone(src,workspace))
+            r(git().silent(true).clone(src,workspace,['--depth=1']))
         }else if(type == 'zip'){
             if(utils.startWith(src,'http')){
                 r(download(src, process.cwd() + '/dlTemp.zip').then(() => {
