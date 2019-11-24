@@ -1,10 +1,9 @@
 const git = require('simple-git/promise')
 const utils = require('lisa.utils')
-const download = require('download')
+const dl = require('retriable-download');
 const fs =require('fs')
 let { zip, unzip } = require('cross-unzip')
 const rimraf = require('rimraf')
-
 
 exports.getRepo= (src,workspace,type)=>{
     return new Promise((r,j)=>{
@@ -17,21 +16,27 @@ exports.getRepo= (src,workspace,type)=>{
             r(git().silent(true).clone(src,workspace,['--depth=1']))
         }else if(type == 'zip'){
             if(utils.startWith(src,'http')){
-                r(download(src, process.cwd() + '/dlTemp.zip').then(() => {
+                var tempFile=null
+                r(dl(src, 3).then((filename) => {
                     return new Promise((r1,j1)=>{
-                        unzip(process.cwd() + '/dlTemp.zip', workspace, err => {
+                        //console.log('sdfsdfsdf')
+                        //console.log(filename)
+                        tempFile = filename
+                        unzip(filename, workspace, err => {
                             if(err)
                             {
-                                j1('something wrong with your zip')
+                                j1(err)
                             }else
                             {
                                 r1()
                             }
                           })
+                        })
+                    //console.log('saved to', filename);
+                    }).then(()=>{
+                        rimraf(tempFile,()=>{})
                     })
-                }).then(()=>{
-                    rimraf(process.cwd() + '/dlTemp.zip',()=>{})
-                }))
+                )
             }else{
                 unzip(src, workspace, err => {
                     if(err)

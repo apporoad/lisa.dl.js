@@ -1,6 +1,6 @@
 {
   "name": "lisa.dl",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "downloads",
   "main": "index.js",
   "scripts": {
@@ -18,8 +18,8 @@
   "homepage": "https://github.com/apporoad/lisa.dl.js#readme",
   "dependencies": {
     "cross-unzip": "^0.2.1",
-    "download": "^7.1.0",
     "lisa.utils": "^1.0.0",
+    "retriable-download": "^2.1.0",
     "rimraf": "^3.0.0",
     "simple-git": "^1.126.0",
     "win-7zip": "^0.1.1"
