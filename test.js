@@ -10,11 +10,11 @@ var dl =require('./index')
 // })
 
 
-// dl.getRepo(__dirname+'/example.zip',__dirname+'/temp','zip').then(r=>{
-//          console.log(r || 'hello')
-// })
+dl.getRepo(__dirname+'/example.zip',__dirname+'/temp','zip').then(r=>{
+         console.log(r || 'hello')
+})
 
 
-// dl.getRepo('/pnote.zip',__dirname+'/temp','zip').then(r=>{
+// dl.getRepo('http://192.168.30.144:10000/pnote.zip',__dirname+'/temp','zip').then(r=>{
 //          console.log(r || 'hello')
 // })

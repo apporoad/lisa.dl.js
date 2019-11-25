@@ -2,8 +2,8 @@ const git = require('simple-git/promise')
 const utils = require('lisa.utils')
 const dl = require('retriable-download');
 const fs =require('fs')
-let { zip, unzip } = require('cross-unzip')
 const rimraf = require('rimraf')
+const unzip = require('unzip')
 
 exports.getRepo= (src,workspace,type)=>{
     return new Promise((r,j)=>{
@@ -22,15 +22,15 @@ exports.getRepo= (src,workspace,type)=>{
                         //console.log('sdfsdfsdf')
                         //console.log(filename)
                         tempFile = filename
-                        unzip(filename, workspace, err => {
-                            if(err)
-                            {
-                                j1(err)
-                            }else
-                            {
+
+                        var streaming =fs.createReadStream(filename)
+                        streaming.on('error',err=>{j1(err)})
+                        streaming.on('end',()=>{
                                 r1()
-                            }
-                          })
+                            })
+                        //console.log(filename)
+                        //console.log(workspace)
+                        streaming.pipe(unzip.Extract({ path: workspace }))
                         })
                     //console.log('saved to', filename);
                     }).then(()=>{
@@ -38,15 +38,12 @@ exports.getRepo= (src,workspace,type)=>{
                     })
                 )
             }else{
-                unzip(src, workspace, err => {
-                    if(err)
-                    {
-                        j('something wrong with your zip')
-                    }else
-                    {
+                var streaming =fs.createReadStream(src)
+                streaming.on('error',err=>{j(err)})
+                streaming.on('end',()=>{
                         r()
-                    }
-                  })
+                    })
+                streaming.pipe(unzip.Extract({ path: workspace }))
             }
         }
         else{
