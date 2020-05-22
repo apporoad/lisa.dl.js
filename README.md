@@ -1,7 +1,16 @@
 # lisa.dl.js
 downloads 
 
-## how to use
+## just try it
+```bash
+npm i -g lisa.dl
+
+ldl -h
+ldl https://github.com/apporoad/lisa.dl.js.git  ldl s
+```
+
+
+## how to use in code
 ```bash
 npm i --save lisa.dl
 ```

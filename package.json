@@ -1,7 +1,7 @@
 {
   "name": "lisa.dl",
-  "version": "1.0.3",
-  "description": "downloads",
+  "version": "1.1.0",
+  "description": "downloads from url or git",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,10 +17,15 @@
   },
   "homepage": "https://github.com/apporoad/lisa.dl.js#readme",
   "dependencies": {
+    "commander": "^5.1.0",
     "lisa.utils": "^1.0.0",
     "retriable-download": "^2.1.0",
     "rimraf": "^3.0.0",
     "simple-git": "^1.126.0",
     "unzip": "^0.1.11"
+  },
+  "bin": {
+    "lisaDl": "bin.js",
+    "ldl" :"bin.js"
   }
 }
